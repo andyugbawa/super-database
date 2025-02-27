@@ -3,7 +3,27 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 
-mongoose.connect("mongodb://127.0.0.1:27017/superDB", {
+const MONGO_URI = process.env.VERCEL_ENV === 'production' 
+    ? process.env.MONGO_URI_PROD 
+    : process.env.MONGO_URI_PROD;
+
+
+    if (!MONGO_URI) {
+        console.error("❌ MongoDB URI is missing! Check your .env file.");
+        process.exit(1); 
+    }
+
+    console.log("✅ Using MongoDB URI:", MONGO_URI);
+
+mongoose.connect(MONGO_URI, { dbName: 'superDB' })
+.then(() => {
+    console.log("✅ Connected to MongoDB successfully!");
+}).catch(err => {
+    console.error("❌ MongoDB Connection Error:", err);
+    process.exit(1); 
+});
+
+mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
