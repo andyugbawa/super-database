@@ -136,12 +136,13 @@ app.post("/show", async (req, res) => {
 
     try {
         if (!name || !email) {
-            return res.status(400).json({ error: "⚠️ Name and email are required!" });
+            // return res.status(400).json({ error: "⚠️ Name and email are required!" });
         }
 
         const newSuper = new Super({ name, email });
         await newSuper.save();
-        res.status(201).json({ message: "✅ Data saved successfully!" });
+        res.send("✅ Data saved successfully!");
+        // res.status(201).json({ message: "✅ Data saved successfully!" });
     } catch (err) {
         console.error("❌ Error saving data:", err);
         res.status(500).json({ error: "❌ Error saving data." });
