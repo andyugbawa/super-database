@@ -101,7 +101,7 @@ app.use(express.json());
 // Correct MongoDB connection setup
 const MONGO_URI = process.env.VERCEL_ENV === 'production' 
     ? process.env.MONGO_URI_PROD 
-    : process.env.MONGO_URI_DEV;
+    : process.env.MONGO_URI_PROD;
 
 if (!MONGO_URI) {
     console.error("❌ MongoDB URI is missing! Check your .env file.");
